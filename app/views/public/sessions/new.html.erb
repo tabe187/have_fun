@@ -1,0 +1,39 @@
+<head>
+</head>
+
+<main>
+  <div class="container">
+    <div class="rowjustify-content-center text-center" style="padding: 10px">
+       <h5>ログイン</h5>
+    </div>
+    <%= form_for(:session, url: login_path) do |f| %>
+    
+    <div class="row justify-content-center">
+      <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >
+        <table>
+          <tbody>
+            <tr>  
+                <div class="form-group">
+                  <label>メールアドレス</label><br>
+                  <div class="field">
+                  <%= f.email_field :mail, autofocus: true, autocomplete: "email" %>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>パスワード</label><br>
+                  <div class="field">
+                    <%= f.text_field :password, autocomplete: "current-password" %>
+                  </div>  
+                </div>
+                <div class="actions">
+                  <%= f.submit "ログイン" %>
+                  <% end %>
+                </div>
+              <!--<#%= render "public/shared/links" %>-->
+            </tr>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+ </div>
+</main>

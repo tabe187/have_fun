@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HaveFun</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                
+                <% if signed_in? %>
+                
+                  <li class="nav-item">
+                    <%= link_to logout_path, method: :delete, class: 'nav-link text-light' do %>
+                    <i class="fas fa-sign-out-alt"></i> ログアウト
+                    <% end %>
+                  </li>
+                  
+                <% else %>
+                  <li class="nav-item">
+                    <%= link_to login_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-sign-in-alt"></i> ログイン
+                    <% end %>
+                  </li>
+                <% end %>
+                </ul>
+              </div>
+    
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
