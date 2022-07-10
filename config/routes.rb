@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     post    'login',   to: 'sessions#create'
     delete  'logout',  to: 'sessions#destroy'
     
+    resources :reservations, only: [:new, :show, :create]
+    
   end  
   
 end
