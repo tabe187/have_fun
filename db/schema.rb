@@ -14,8 +14,9 @@ ActiveRecord::Schema.define(version: 2022_07_09_232152) do
 
   create_table "reservations", force: :cascade do |t|
     t.date "day", null: false
-    t.string "time", null: false
+    t.string "time_from", null: false
     t.integer "user_id", null: false
+    t.integer "number_of_ppl", null: false
     t.datetime "start_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

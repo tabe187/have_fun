@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_secure_password validations: true
   validates :mail, presence: true, uniqueness: true
   
+  has_many :reservations
+  
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end

@@ -32,24 +32,26 @@
             <% end %>
           <% end %>
         </tr>
-        <% times.each do |time| %>
-          <tr>
-            <td><%= time %></td>
-            <% week.each do |day| %>
-              <td>
-                <% if check_reservation(reservations, day, time) %>
-                  <%= '×' %>
-                <% else %>
-                  <!-- 追加 -->
-                  <%= link_to new_reservation_path(day: day, time: time) do %>
-                    <%= '○' %>
+          <% Reservation.times.keys.each do |time| %>
+            <tr>
+              <td><%= time %></td>
+              <% week.each do |day| %>
+                <td>
+                  <% if check_reservation(reservations, day, time) <= 6 %>
+                    <%= link_to new_reservation_path(day: day, time_from: time) do %>
+                      <%= '○' %>
+                    <% end %>
+                  <% elsif check_reservation(reservations, day, time) >= 7 && check_reservation(reservations, day, time) < 10 %>
+                    <%= link_to new_reservation_path(day: day, time_from: time) do %>
+                      <%= '△' %>
+                    <% end %>
+                  <% else %>
+                      <%= '×' %>
                   <% end %>
-                  <!-- ここまで -->
-                <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
       <% end %>
     </tbody>
   </table>
