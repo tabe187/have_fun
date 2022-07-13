@@ -34,7 +34,9 @@
                 <i class="fas fa-sign-out-alt"></i> ログアウト
                 <% end %>
               </li>
-
+              <li class="nav-item text-light">
+                <%= @current_user.name %>さん
+              </li>
             <% else %>
               <li class="nav-item">
                 <%= link_to login_path, class: 'nav-link text-light' do %>
@@ -49,6 +51,11 @@
   </head>
 
   <body>
+    <% if flash[:notice] %>
+     <p id="notice">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

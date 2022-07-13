@@ -10,21 +10,18 @@
           <td>時間帯</td>
           <td>人数</td>
           <td></td>
-          <td></td>
         </thead>
-        </tbody>  
-          <tr>
-          <% @user.reservations.each do |reservation| %>
+        </tbody>
+          <% @reservations.each do |reservation| %>
           <tr>
             <td><%= reservation.day %></td>
             <td><%= reservation.time_from %></td>
             <td><%= reservation.number_of_ppl %></td>
-            <td>編集</td>
-          　<td>削除</td>
-          <tr>
+            <td><%= link_to "編集/削除", edit_reservation_path(reservation.id) %></td>
+          </tr>
           <% end %>
-      </tbody>  
-    </table>  
+      </tbody>
+    </table>
     </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+
 <div class="simple-calendar">
   <div class="calendar-heading">
     <%= link_to t('simple_calendar.previous', default: '前週'), calendar.url_for_previous_view %>
@@ -38,13 +39,21 @@
               <% week.each do |day| %>
                 <td>
                   <% if check_reservation(reservations, day, time) <= 6 %>
-                    <%= link_to new_reservation_path(day: day, time_from: time) do %>
-                      <%= '○' %>
+                    <% if day < Date.current %>
+                        <%= '×' %>
+                    <% else %>
+                        <%= link_to new_reservation_path(day: day, time_from: time) do %>
+                          <%= '○' %>
+                        <% end %>
                     <% end %>
                   <% elsif check_reservation(reservations, day, time) >= 7 && check_reservation(reservations, day, time) < 10 %>
-                    <%= link_to new_reservation_path(day: day, time_from: time) do %>
-                      <%= '△' %>
-                    <% end %>
+                    <% if day < Date.current %>
+                        <%= '×' %>
+                    <% else %>
+                      <%= link_to new_reservation_path(day: day, time_from: time) do %>
+                        <%= '△' %>
+                      <% end %>
+                    <% end %>  
                   <% else %>
                       <%= '×' %>
                   <% end %>

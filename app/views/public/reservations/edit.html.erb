@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>予約編集</h1>
+    </div>
+    <div class="col-12 mt-3">
+      <table class="table table-striped">
+        <thead>
+          <td>日付</td>
+          <td>時間帯</td>
+          <td>人数</td>
+          <td></td>
+          <td></td>
+        </thead>
+        </tbody>
+        <%= form_with model: @reservation, url: reservation_path do |f| %>
+          <tr>
+            <td><%= @reservation.day %></td>
+            <td><%= f.select :time_from, Reservation.times.keys.map{|k| [("#{k}")]}, value: @reservation.time_from %></td>
+            <td><%= f.select :number_of_ppl, *[1..10], value: @reservation.number_of_ppl %> </td>
+            <td><%= f.submit '更新' %></td>
+            <td><%= link_to "予約を取り消す", reservation_path(@reservation.id), method: :delete, class:"btn-sm btn-secondary", "data-confirm" => "本当に削除しますか？" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-12 mt-3">
+      <% total = 0 %>
+      利用予定者<br>
+      <% @reservations.each do |reservation| %>
+        <%= reservation.user.name %>さん<br>
+        <% total = total + reservation.number_of_ppl %>
+      <% end %><br>
+      利用予定合計<br>
+      <%= total %>人
+    </div>
+  </div>
+</div>

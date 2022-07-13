@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 mt-3 content">
       <%= form_with model: @reservation, url: reservations_path, local: true, class: 'form' do |form| %>
-      <!--<#%= render 'layouts/error_messages', model: form.object %>-->
+        <%= render 'layouts/error_messages', model: form.object %>
       <div class="day form-group">
         <%= form.label :day, '日付' %>
         <%= form.text_field :day, class: 'form-control', value: @day, readonly: true %>
@@ -16,7 +16,7 @@
         <%= form.text_field :time_from, class: 'form-control', value: @time, readonly: true %>
       </div>
       <div class="time form-group">
-        <%= form.label :number_of_ppl, '利用人数 (上限10名)' %>
+        <%= form.label :number_of_ppl, '利用人数 (上限10名)' %><%= @reservation_amount %>
         <%= form.select :number_of_ppl, *[1..10], include_blank: "選択してください" %>
       </div>
       <%= form.hidden_field :start_time, value: @start_time %>
@@ -27,6 +27,16 @@
     <div class="col-12 text-right">
       <%= link_to '戻る', reservations_path %>
     </div>
+    </div>
+    <div class="col-12 mt-3">
+      <% total = 0 %>
+      利用予定者<br>
+      <% @reservations.each do |reservation| %>
+        <%= reservation.user.name %>さん<br>
+        <% total = total + reservation.number_of_ppl %>
+      <% end %><br>
+      利用予定合計<br>
+      <%= total %>人
     </div>
   </div>
 </div>
