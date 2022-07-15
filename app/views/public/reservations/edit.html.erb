@@ -13,7 +13,7 @@
           <td></td>
         </thead>
         </tbody>
-        <%= form_with model: @reservation, url: reservation_path do |f| %>
+        <%= form_with model: @reservation, url: reservation_path(@reservation), local: true do |f| %>
           <tr>
             <td><%= @reservation.day %></td>
             <td><%= f.select :time_from, Reservation.times.keys.map{|k| [("#{k}")]}, value: @reservation.time_from %></td>
@@ -34,6 +34,7 @@
       <% end %><br>
       利用予定合計<br>
       <%= total %>人
+      sample<%= @sample %>
     </div>
   </div>
 </div>

@@ -8,7 +8,6 @@
       <span class="calendar-title"><%= t('simple_calendar.week', default: '1週間') %></span>
     <% end %>
     <%= link_to t('simple_calendar.next', default: '翌週'), calendar.url_for_next_view %>
-    <% reservations = Reservation.reservations_after_three_month %>
   </div>
   <table class="table table-striped">
     <thead>
@@ -38,7 +37,7 @@
               <td><%= time %></td>
               <% week.each do |day| %>
                 <td>
-                  <% if check_reservation(reservations, day, time) <= 6 %>
+                  <% if Reservation.check_reservation(@reservations, day, time) <= 6 %>
                     <% if day < Date.current %>
                         <%= '×' %>
                     <% else %>
@@ -46,14 +45,14 @@
                           <%= '○' %>
                         <% end %>
                     <% end %>
-                  <% elsif check_reservation(reservations, day, time) >= 7 && check_reservation(reservations, day, time) < 10 %>
+                  <% elsif Reservation.check_reservation(@reservations, day, time) >= 7 && Reservation.check_reservation(@reservations, day, time) < 10 %>
                     <% if day < Date.current %>
                         <%= '×' %>
                     <% else %>
                       <%= link_to new_reservation_path(day: day, time_from: time) do %>
                         <%= '△' %>
                       <% end %>
-                    <% end %>  
+                    <% end %>
                   <% else %>
                       <%= '×' %>
                   <% end %>
