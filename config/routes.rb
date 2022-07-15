@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   scope module: :public do
     resources :homes, only: [:top, :about]
     root to: 'homes#top'
-    get     'about',   to: 'homes#about'
     
-    resources :users, only: [:new, :index, :edit, :show, :create, :update, :destroy]
+    resources :users, only: [:new, :create]
     
     get     'login',   to: 'sessions#new'
     post    'login',   to: 'sessions#create'

@@ -19,11 +19,17 @@ class Public::ReservationsController < ApplicationController
 
   def show
     @reservation = Reservation.find(params[:id])
+    if current_user.id != @reservation.user_id
+      redirect_back fallback_location: root_path
+    end
   end
 
   def edit
     @reservation = Reservation.find(params[:id])
     @reservations = Reservation.where(day: @reservation.day, time_from: @reservation.time_from)
+    if current_user.id != @reservation.user_id
+      redirect_back fallback_location: root_path
+    end
   end
 
   def create
@@ -48,20 +54,28 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     @reservations_all = Reservation.where(day: @reservation.day, time_from: @reservation.time_from)
     @reservations_current_user = Reservation.where(day: @reservation.day, time_from: @reservation.time_from, user_id: current_user.id)
-    if Reservation.all_users_reservation_amount(@reservations_all) - Reservation.current_users_reservation_amount(@reservations_current_user) + @reservation_new.number_of_ppl <= 10
-      if @reservation.update(reservation_params)
-        redirect_to reservation_path(@reservation.id)
-      end
+    if current_user.id != @reservation.user_id
+      redirect_back fallback_location: root_path
     else
-      flash[:notice] = "定員オーバーです。"
-      redirect_to root_path
-    end
+      if Reservation.all_users_reservation_amount(@reservations_all) - Reservation.current_users_reservation_amount(@reservations_current_user) + @reservation_new.number_of_ppl <= 10
+        if @reservation.update(reservation_params)
+          redirect_to reservation_path(@reservation.id)
+        end
+      else
+        flash[:notice] = "定員オーバーです。"
+        redirect_to root_path
+      end
+    end  
   end
 
   def destroy
     @reservation = Reservation.find(params[:id])
-    @reservation .destroy
-    redirect_to reservations_path
+    if current_user.id != @reservation.user_id
+      redirect_back fallback_location: root_path
+    else
+      @reservation .destroy
+      redirect_to reservations_path
+    end
   end
 
 private

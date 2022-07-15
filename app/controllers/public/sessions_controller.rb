@@ -29,7 +29,6 @@ class Public::SessionsController < ApplicationController
     render action: 'new'
   end
 
-  # 許可するパラメータ
   def session_params
     params.require(:session).permit(:mail, :password)
   end

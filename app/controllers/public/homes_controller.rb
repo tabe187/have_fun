@@ -5,8 +5,5 @@ class Public::HomesController < ApplicationController
     @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
   end
   
-  def about
-  end  
-  
 end
 

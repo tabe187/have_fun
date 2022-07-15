@@ -13,6 +13,14 @@ class Reservation < ApplicationRecord
     end
     return count
   end
+  
+  def self.check_reservation_day(day)
+    if day < Date.current
+      return "過去の日付は選択できません。正しい日付を選択してください。"
+    elsif (Date.current >> 3) < day
+      return "3ヶ月以降の日付は選択できません。正しい日付を選択してください。"
+    end
+  end
 
   def self.all_users_reservation_amount(reservations)
     count = 0
@@ -28,14 +36,6 @@ class Reservation < ApplicationRecord
       count += r.number_of_ppl
     end
     return count
-  end
-
-  def self.check_reservation_day(day)
-    if day < Date.current
-      return "過去の日付は選択できません。正しい日付を選択してください。"
-    elsif (Date.current >> 3) < day
-      return "3ヶ月以降の日付は選択できません。正しい日付を選択してください。"
-    end
   end
 
   validate :date_before_start
