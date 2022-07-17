@@ -37,7 +37,7 @@ class Public::ReservationsController < ApplicationController
     @reservation.user_id = current_user.id
     @reservations = Reservation.where(day: @reservation.day, time_from: @reservation.time_from)
     if Reservation.find_by(day: @reservation.day, time_from: @reservation.time_from, user_id: @reservation.user_id).present?
-      flash[:notice] = "既に予約が存在します。変更の場合はキャンセル後に再度予約手続きをお願いいたします"
+      flash[:notice] = "既に予約が存在します。"
       redirect_to reservations_path
     elsif Reservation.all_users_reservation_amount(@reservations) + @reservation.number_of_ppl <= 10
       @reservation.save
