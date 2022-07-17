@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  
   before_action :current_user
   before_action :require_sign_in!
   helper_method :signed_in?
@@ -29,8 +28,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def require_sign_in!
-      redirect_to login_path unless signed_in?
-    end
-
+  def require_sign_in!
+    redirect_to login_path unless signed_in?
+  end
 end

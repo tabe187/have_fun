@@ -1,5 +1,4 @@
 class Public::ReservationsController < ApplicationController
-
   def new
     @reservation = Reservation.new
     @day = params[:day]
@@ -65,7 +64,7 @@ class Public::ReservationsController < ApplicationController
         flash[:notice] = "定員オーバーです。"
         redirect_to root_path
       end
-    end  
+    end
   end
 
   def destroy
@@ -78,10 +77,9 @@ class Public::ReservationsController < ApplicationController
     end
   end
 
-private
+  private
 
   def reservation_params
     params.require(:reservation).permit(:day, :time_from, :user_id, :number_of_ppl, :start_time)
   end
-
 end

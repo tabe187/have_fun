@@ -3,12 +3,13 @@ require 'rails_helper'
 describe '予約状況を確認するテスト' do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
-  let(:reservations){
+  let(:reservations) do
     [
       create(:reservation, user_id: user1.id),
-      create(:reservation, day: "2022-07-19", user_id: user2.id)
+      create(:reservation, day: "2022-07-19", user_id: user2.id),
     ]
-  }
+  end
+
   it "正しい予約人数が返されているかを確認するテスト" do
     user1
     user2
@@ -20,12 +21,13 @@ end
 describe '予約状況を確認するテスト' do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
-  let(:reservations){
+  let(:reservations) do
     [
       create(:reservation, user_id: user1.id),
-      create(:reservation, user_id: user2.id)
+      create(:reservation, user_id: user2.id),
     ]
-  }
+  end
+
   it "同日の予約人数が正しく返されているかを確認するテスト" do
     user1
     user2
@@ -37,12 +39,13 @@ end
 describe '予約状況を確認するテスト' do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
-  let(:reservations){
+  let(:reservations) do
     [
       create(:reservation, user_id: user1.id),
-      create(:reservation, user_id: user2.id)
+      create(:reservation, user_id: user2.id),
     ]
-  }
+  end
+
   it "指定のユーザーの予約人数が正しく返されているかを確認するテスト" do
     user1
     user2
@@ -50,8 +53,8 @@ describe '予約状況を確認するテスト' do
     current_user_reserve = Reservation.where(user_id: user1.id)
     expect(Reservation.current_users_reservation_amount(current_user_reserve)).to eq(reservations[0].number_of_ppl)
   end
-end  
-  
+end
+
 describe '予約日を確認するテスト' do
   it "予約日が過去の日付且ではないかを確認するテスト" do
     day = "Fri, 15 Jul 2022"

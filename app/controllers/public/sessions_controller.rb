@@ -1,10 +1,10 @@
 class Public::SessionsController < ApplicationController
   skip_before_action :require_sign_in!, only: [:new, :create]
   before_action :set_user, only: [:create]
-  
+
   def new
   end
-  
+
   def create
     if @user.authenticate(session_params[:password])
       sign_in(@user)
@@ -19,7 +19,7 @@ class Public::SessionsController < ApplicationController
     sign_out
     redirect_to login_path
   end
-  
+
   private
 
   def set_user
@@ -32,5 +32,4 @@ class Public::SessionsController < ApplicationController
   def session_params
     params.require(:session).permit(:mail, :password)
   end
-  
 end

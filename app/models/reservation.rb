@@ -1,5 +1,4 @@
 class Reservation < ApplicationRecord
-
   belongs_to :user
 
   enum times: { "9:00": 0, "11:00": 1, "13:00": 2, "15:00": 3 }
@@ -9,16 +8,16 @@ class Reservation < ApplicationRecord
     count = 0
     reservations.each do |reservation|
       result = reservation[:day].strftime("%Y-%m-%d").eql?(day.strftime("%Y-%m-%d")) && reservation[:time_from].eql?(time)
-      count = count + reservation[:number_of_ppl] if result
+      count += reservation[:number_of_ppl] if result
     end
-    return count
+    count
   end
-  
+
   def self.check_reservation_day(day)
     if day < Date.current
-      return "過去の日付は選択できません。正しい日付を選択してください。"
+      "過去の日付は選択できません。正しい日付を選択してください。"
     elsif (Date.current >> 3) < day
-      return "3ヶ月以降の日付は選択できません。正しい日付を選択してください。"
+      "3ヶ月以降の日付は選択できません。正しい日付を選択してください。"
     end
   end
 
@@ -27,7 +26,7 @@ class Reservation < ApplicationRecord
     reservations.each do |r|
       count += r.number_of_ppl
     end
-    return count
+    count
   end
 
   def self.current_users_reservation_amount(reservations)
@@ -35,7 +34,7 @@ class Reservation < ApplicationRecord
     reservations.each do |r|
       count += r.number_of_ppl
     end
-    return count
+    count
   end
 
   validate :date_before_start
@@ -48,6 +47,4 @@ class Reservation < ApplicationRecord
   def date_three_month_end
     errors.add(:day, "は3ヶ月以降の日付は選択できません") if (Date.current >> 3) < day
   end
-  
-
 end
